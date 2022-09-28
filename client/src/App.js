@@ -6,8 +6,8 @@ import PriceContainer from './Components/PriceContainer'
 function App() {
 	return (
 		<div className='h-full w-full'>
-			<NewsContainer />
-			{/* <PriceContainer /> */}
+			{/* <NewsContainer /> */}
+			<PriceContainer />
 		</div>
 	)
 }

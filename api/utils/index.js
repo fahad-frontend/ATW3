@@ -1,5 +1,7 @@
-// const moment =require('moment')
+const moment = require('moment')
 
-// export const getTime = (amount, metric) => {
+const getLastTime = (number, metric) => moment().subtract(number, metric).format('x')
 
-// }
+module.exports = {
+	getLastTime,
+}

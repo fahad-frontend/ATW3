@@ -3,14 +3,14 @@ const router = express.Router()
 const axios = require('axios')
 const db = require('../config')
 const moment = require('moment')
+const { getLastTime } = require('../utils')
 
 router.get('/', async (req, res) => {
 	let response = {}
-	const checkTime = moment().subtract(3, 'hours').format('x')
-	console.log(checkTime)
+	const checkTime = getLastTime(2, 'hours')
 	const newsQuery = await db.collection('news').where('time', '>=', checkTime).where('page', '==', parseInt(req.query.page)).get()
 	const dbNewsDocs = newsQuery.docs.map((doc) => ({ ...doc.data() }))
-	console.log(dbNewsDocs)
+	console.log(req.query.page, dbNewsDocs)
 	if (dbNewsDocs.length > 0) {
 		response = {
 			data: dbNewsDocs[0].data.news,
@@ -38,7 +38,6 @@ router.post('/add', async (req, res) => {
 		time,
 		page,
 	})
-	// console.log('hitted')
 	res.json('Entry added to db')
 })
 

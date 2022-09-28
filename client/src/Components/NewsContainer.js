@@ -28,8 +28,6 @@ const NewsContainer = () => {
 			setNews((prev) => [...prev, ...newsData.data])
 			newsData.source === 'api' && saveNews({ news: newsData.data })
 		}
-		// localStorage.setItem('news', JSON.stringify(newsData))
-		// const newsData = JSON.parse(localStorage.getItem('news'))
 	}
 
 	const saveNews = async (news) => {
