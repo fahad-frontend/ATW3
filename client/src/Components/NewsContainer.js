@@ -4,8 +4,9 @@ const NewsContainer = () => {
 	const [page, setPage] = useState(1)
 	const [news, setNews] = useState([])
 	const [loading, setLoading] = useState(false)
-
+	console.log(window.location.hostname)
 	const observer = useRef()
+
 	const lastNewsElementRef = useCallback((node) => {
 		if (observer.current) observer.current.disconnect()
 		observer.current = new IntersectionObserver((entries) => {
@@ -16,14 +17,21 @@ const NewsContainer = () => {
 		})
 		if (node) observer.current.observe(node)
 	}, [])
+
 	const normalNewsElementRef = useCallback()
+
+	useEffect(() => {
+		const controller = new AbortController()
+		fetchNews(controller)
+		return () => controller.abort()
+	}, [page])
 
 	const fetchNews = async (controller) => {
 		const newsRequest = await fetch(`http://localhost:8080/news?page=${page}`, {
 			signal: controller.signal,
 		})
 		const newsData = await newsRequest.json()
-		console.log(newsData)
+		console.log('newsData', newsData)
 		if (newsData.data) {
 			setLoading(false)
 			setNews((prev) => [...prev, ...newsData.data])
@@ -46,7 +54,7 @@ const NewsContainer = () => {
 
 	const NewsItem = (item, index) => (
 		<div
-			className='flex items-center justify-between p-6 transition ease-in-out delay-100 hover:-translate-y-2 hover:-translate-x-2 hover:scale-30 hover:bg-indigo-300 cursor-pointer border-b-2 border-gray-800 rounded-lg'
+			className='flex items-center justify-between p-6 transition ease-in-out delay-100 hover:-translate-y-1 hover:-translate-x-2 hover:scale-30 hover:bg-indigo-300 cursor-pointer border-b-2 border-gray-800 rounded-lg'
 			key={index}
 			ref={index === news.length - 1 ? lastNewsElementRef : normalNewsElementRef}
 			onClick={() => window.open(item.news_url, '_blank').focus()}
@@ -59,33 +67,28 @@ const NewsContainer = () => {
 					<p>{item.date}</p>
 				</div>
 			</div>
-			<img className='hidden sm:flex sm:h-28 sm:w-34' src={`${item.image_url}`} />
+			<img className='hidden md:flex sm:h-28 sm:w-34' src={`${item.image_url}`} />
 		</div>
 	)
 
-	useEffect(() => {
-		const controller = new AbortController()
-		fetchNews(controller)
-		return () => controller.abort()
-	}, [page])
-
 	const loader = () => (
-		<div class='rect'>
-			<div class='rect1'></div>
-			<div class='rect2'></div>
-			<div class='rect3'></div>
-			<div class='rect4'></div>
-			<div class='rect5'></div>
+		<div className='rect'>
+			<div className='rect1'></div>
+			<div className='rect2'></div>
+			<div className='rect3'></div>
+			<div className='rect4'></div>
+			<div className='rect5'></div>
 		</div>
 	)
 
 	return (
 		<div className='mt-4 p-4 border-2 border-meta-purple rounded-lg'>
 			{news?.length > 0 ? (
-				<>
+				<div>
+					<p className='text-3xl font-bold mr-4 text-center text-meta-purple'>In Other News </p>
 					{news.map((item, index) => NewsItem(item, index))}
 					{loading && loader()}
-				</>
+				</div>
 			) : (
 				loader()
 			)}

@@ -9,7 +9,7 @@ const TweetsContainer = () => {
 			signal: controller.signal,
 		})
 		const tweetsData = await tweetsRequest.json()
-		console.log(tweetsData)
+		console.log('tweetsData', tweetsData)
 		if (tweetsData.data) {
 			setTweets((prev) => [...prev, ...tweetsData.data])
 			tweetsData.source === 'api' && saveTweets({ tweets: tweetsData.data })
@@ -35,9 +35,9 @@ const TweetsContainer = () => {
 	)
 
 	const loader = () => (
-		<div class='double'>
-			<div class='double-bounce1'></div>
-			<div class='double-bounce2'></div>
+		<div className='double'>
+			<div className='double-bounce1'></div>
+			<div className='double-bounce2'></div>
 		</div>
 	)
 
@@ -48,7 +48,10 @@ const TweetsContainer = () => {
 	}, [])
 
 	return (
-		<div className='p-4 border-2 border-meta-purple rounded-lg bg-black'>{tweets.length > 0 ? tweets.map((tweet) => showTweets(tweet)) : loader()}</div>
+		<div className='p-4 border-2 border-meta-purple rounded-lg bg-black'>
+			<p className='text-white text-3xl font-bold text-center mb-4'>Latest Web3 related Tweets </p>
+			{tweets.length > 0 ? tweets.map((tweet) => showTweets(tweet)) : loader()}
+		</div>
 	)
 }
 

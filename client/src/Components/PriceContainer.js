@@ -11,12 +11,6 @@ const PricesContainer = () => {
 
 	const chartOptions = {
 		responsive: true,
-		plugins: {
-			title: {
-				display: true,
-				text: 'Compare Cryptocurrencies Price Data',
-			},
-		},
 	}
 
 	const selectOptions = [
@@ -52,7 +46,7 @@ const PricesContainer = () => {
 			signal: controller.signal,
 		})
 		const priceData = await priceRequest.json()
-		console.log(priceData)
+		console.log('pricesData', priceData)
 		if (priceData?.data?.length > 0) {
 			setPrices((prev) => [...prev, ...priceData.data])
 			priceData?.source === 'api' && savePrices(priceData.data)
@@ -77,23 +71,25 @@ const PricesContainer = () => {
 
 	const loader = () => (
 		<section>
-			<div class='loader loader-7'>
-				<div class='line line1'></div>
-				<div class='line line2'></div>
-				<div class='line line3'></div>
+			<div className='loader loader-7'>
+				<div className='line line1'></div>
+				<div className='line line2'></div>
+				<div className='line line3'></div>
 			</div>
 		</section>
 	)
 
 	const showBarChart = () => (
 		<>
-			<select className='bg-meta-purple p-1 rounded-md text-white' name='property' onChange={handleChange} defaultValue={property}>
+			<p className='text-3xl font-bold mb-2 text-meta-purple'>Compare currency data</p>
+			<select className='mb-2 p-1 rounded-md border-2 border-black' name='property' onChange={handleChange} defaultValue={property}>
 				{selectOptions.map((option) => (
 					<option key={option.key} value={option.key}>
 						{option.value}
 					</option>
 				))}
 			</select>
+
 			<Bar options={chartOptions} data={getChartData()} />
 		</>
 	)
@@ -104,7 +100,11 @@ const PricesContainer = () => {
 		return () => controller.abort()
 	}, [])
 
-	return <div className='p-4 border-2 border-meta-purple rounded-lg'>{prices?.length > 0 ? showBarChart() : loader()}</div>
+	return (
+		<div className='flex flex-col justify-content items-center p-4 border-2 border-meta-purple rounded-lg'>
+			{prices?.length > 0 ? showBarChart() : loader()}
+		</div>
+	)
 }
 
 export default PricesContainer
