@@ -7,6 +7,7 @@ var path = require('path')
 
 const pricesRouter = require('./routes/prices')
 const newsRouter = require('./routes/news')
+const tweetsRouter = require('./routes/tweets')
 require('dotenv').config()
 
 const app = express()
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: true }))
 // app.use('/', indexRouter)
 app.use('/prices', pricesRouter)
 app.use('/news', newsRouter)
+app.use('/tweets', tweetsRouter)
 
 // app.get('/prices', (request, response) => {
 // 	response.send('<h1>About</h1>')

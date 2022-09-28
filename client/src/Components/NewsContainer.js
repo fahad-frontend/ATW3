@@ -1,10 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
-// import { useQuery } from 'react-query'
 
 const NewsContainer = () => {
 	const [page, setPage] = useState(1)
 	const [news, setNews] = useState([])
-	// const { data: news } = useQuery('news', () => fetch(`http://localhost:8080/news?page=${page}`).then((res) => res.json()))
 
 	const observer = useRef()
 	const lastNewsElementRef = useCallback((node) => {
