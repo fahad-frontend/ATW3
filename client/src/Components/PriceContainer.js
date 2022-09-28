@@ -5,7 +5,7 @@ import get from 'lodash.get'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
-const PriceContainer = () => {
+const PricesContainer = () => {
 	const [prices, setPrices] = useState([])
 	const [property, setProperty] = useState('quote,USD,percent_change_30d')
 
@@ -14,7 +14,7 @@ const PriceContainer = () => {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Compare Cryptocurrencies',
+				text: 'Compare Cryptocurrencies Price Data',
 			},
 		},
 	}
@@ -75,9 +75,19 @@ const PriceContainer = () => {
 		setProperty(event.target.value)
 	}
 
+	const loader = () => (
+		<section>
+			<div class='loader loader-7'>
+				<div class='line line1'></div>
+				<div class='line line2'></div>
+				<div class='line line3'></div>
+			</div>
+		</section>
+	)
+
 	const showBarChart = () => (
-		<div className='p-4'>
-			<select className='bg-indigo-400 p-2 rounded-md text-white' name='property' onChange={handleChange} defaultValue={property}>
+		<>
+			<select className='bg-meta-purple p-1 rounded-md text-white' name='property' onChange={handleChange} defaultValue={property}>
 				{selectOptions.map((option) => (
 					<option key={option.key} value={option.key}>
 						{option.value}
@@ -85,7 +95,7 @@ const PriceContainer = () => {
 				))}
 			</select>
 			<Bar options={chartOptions} data={getChartData()} />
-		</div>
+		</>
 	)
 
 	useEffect(() => {
@@ -94,7 +104,7 @@ const PriceContainer = () => {
 		return () => controller.abort()
 	}, [])
 
-	return <>{prices?.length > 0 ? showBarChart() : <p>Loading</p>}</>
+	return <div className='p-4 border-2 border-meta-purple rounded-lg'>{prices?.length > 0 ? showBarChart() : loader()}</div>
 }
 
-export default PriceContainer
+export default PricesContainer

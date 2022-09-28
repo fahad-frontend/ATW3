@@ -9,7 +9,7 @@ const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent'
 
 router.get('/', async (req, res) => {
 	let response = {}
-	const checkTime = getLastTime(1, 'minutes')
+	const checkTime = getLastTime(2, 'hours')
 	const tweetsQuery = await db.collection('tweets').where('time', '>=', checkTime).get()
 	const dbTweetsDocs = tweetsQuery.docs.map((doc) => ({ ...doc.data() }))
 
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 			},
 			params: {
 				query: '#web3',
-				max_results: 20,
+				max_results: 10,
 			},
 		})
 		response = {
@@ -45,7 +45,6 @@ router.post('/add', async (req, res) => {
 		data: tweets.tweets,
 		time,
 	})
-	console.log('hitted')
 	res.json('Entry added to db')
 })
 

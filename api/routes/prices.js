@@ -39,7 +39,6 @@ router.post('/add', async (req, res) => {
 		data: prices,
 		time,
 	})
-	console.log('hitted')
 	res.json('Entry added to db')
 })
 

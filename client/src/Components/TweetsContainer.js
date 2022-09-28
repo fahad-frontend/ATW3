@@ -34,13 +34,22 @@ const TweetsContainer = () => {
 		</div>
 	)
 
+	const loader = () => (
+		<div class='double'>
+			<div class='double-bounce1'></div>
+			<div class='double-bounce2'></div>
+		</div>
+	)
+
 	useEffect(() => {
 		const controller = new AbortController()
 		fetchTweets(controller)
 		return () => controller.abort()
 	}, [])
 
-	return <>{tweets.length > 0 ? tweets.map((tweet) => showTweets(tweet)) : <p>Hmm</p>}</>
+	return (
+		<div className='p-4 border-2 border-meta-purple rounded-lg bg-black'>{tweets.length > 0 ? tweets.map((tweet) => showTweets(tweet)) : loader()}</div>
+	)
 }
 
 export default TweetsContainer

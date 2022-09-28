@@ -10,10 +10,9 @@ router.get('/', async (req, res) => {
 	const checkTime = getLastTime(2, 'hours')
 	const newsQuery = await db.collection('news').where('time', '>=', checkTime).where('page', '==', parseInt(req.query.page)).get()
 	const dbNewsDocs = newsQuery.docs.map((doc) => ({ ...doc.data() }))
-	console.log(req.query.page, dbNewsDocs)
 	if (dbNewsDocs.length > 0) {
 		response = {
-			data: dbNewsDocs[0].data.news,
+			data: dbNewsDocs[0].data,
 			source: 'db',
 		}
 	} else {
@@ -34,7 +33,7 @@ router.post('/add', async (req, res) => {
 	const NewsRef = await db.collection('news').doc()
 	const time = moment().format('x')
 	await NewsRef.set({
-		data: { ...news },
+		data: news.news,
 		time,
 		page,
 	})
