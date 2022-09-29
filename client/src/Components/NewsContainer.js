@@ -4,7 +4,6 @@ const NewsContainer = () => {
 	const [page, setPage] = useState(1)
 	const [news, setNews] = useState([])
 	const [loading, setLoading] = useState(false)
-	console.log(window.location.hostname)
 	const observer = useRef()
 
 	const lastNewsElementRef = useCallback((node) => {
@@ -27,7 +26,7 @@ const NewsContainer = () => {
 	}, [page])
 
 	const fetchNews = async (controller) => {
-		const newsRequest = await fetch(`http://localhost:8080/news?page=${page}`, {
+		const newsRequest = await fetch(`https://atw3.herokuapp.com/news?page=${page}`, {
 			signal: controller.signal,
 		})
 		const newsData = await newsRequest.json()
@@ -40,7 +39,7 @@ const NewsContainer = () => {
 	}
 
 	const saveNews = async (news) => {
-		await fetch(`http://localhost:8080/news/add`, {
+		await fetch(`https://atw3.herokuapp.com/news/add`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

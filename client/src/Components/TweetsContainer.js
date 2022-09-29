@@ -5,7 +5,7 @@ const TweetsContainer = () => {
 	const [tweets, setTweets] = useState([])
 
 	const fetchTweets = async (controller) => {
-		const tweetsRequest = await fetch(`http://localhost:8080/tweets`, {
+		const tweetsRequest = await fetch(`https://atw3.herokuapp.com/tweets`, {
 			signal: controller.signal,
 		})
 		const tweetsData = await tweetsRequest.json()
@@ -17,7 +17,7 @@ const TweetsContainer = () => {
 	}
 
 	const saveTweets = async (tweets) => {
-		await fetch(`http://localhost:8080/tweets/add`, {
+		await fetch(`https://atw3.herokuapp.com/tweets/add`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
