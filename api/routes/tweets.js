@@ -9,7 +9,7 @@ const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent'
 
 router.get('/', async (req, res) => {
 	let response = {}
-	const checkTime = getLastTime(2, 'hours')
+	const checkTime = getLastTime(5, 'minutes')
 	const tweetsQuery = await db.collection('tweets').where('time', '>=', checkTime).get()
 	const dbTweetsDocs = tweetsQuery.docs.map((doc) => ({ ...doc.data() }))
 

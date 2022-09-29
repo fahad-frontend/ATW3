@@ -8,7 +8,7 @@ const { getLastTime } = require('../utils')
 /* GET users listing. */
 router.get('/', async (req, res) => {
 	let response = {}
-	const checkTime = getLastTime(2, 'hours')
+	const checkTime = getLastTime(30, 'minutes')
 	const pricesQuery = await db.collection('prices').where('time', '>=', checkTime).get()
 	const dbPricesDocs = pricesQuery.docs.map((doc) => ({ ...doc.data() }))
 

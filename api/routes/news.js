@@ -7,7 +7,7 @@ const { getLastTime } = require('../utils')
 
 router.get('/', async (req, res) => {
 	let response = {}
-	const checkTime = getLastTime(2, 'hours')
+	const checkTime = getLastTime(1, 'hours')
 	const newsQuery = await db.collection('news').where('time', '>=', checkTime).where('page', '==', parseInt(req.query.page)).get()
 	const dbNewsDocs = newsQuery.docs.map((doc) => ({ ...doc.data() }))
 	if (dbNewsDocs.length > 0) {
