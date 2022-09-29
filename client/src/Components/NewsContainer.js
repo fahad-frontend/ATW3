@@ -66,7 +66,7 @@ const NewsContainer = () => {
 					<p>{item.date}</p>
 				</div>
 			</div>
-			<img className='hidden md:flex sm:h-28 sm:w-34' src={`${item.image_url}`} />
+			<img className='invisible md:visible sm:h-28 sm:w-34' src={`${item.image_url}`} />
 		</div>
 	)
 
