@@ -5,7 +5,6 @@ const moment = require('moment')
 const axios = require('axios')
 const { getLastTime } = require('../utils')
 
-/* GET users listing. */
 router.get('/', async (req, res) => {
 	let response = {}
 	const checkTime = getLastTime(30, 'minutes')
