@@ -42,7 +42,7 @@ const PricesContainer = () => {
 	}
 
 	const getPrices = async (controller) => {
-		const priceRequest = await fetch('https://atw3.herokuapp.com/prices', {
+		const priceRequest = await fetch('http://localhost:8080/prices', {
 			signal: controller.signal,
 		})
 		const priceData = await priceRequest.json()
@@ -54,7 +54,7 @@ const PricesContainer = () => {
 	}
 
 	const savePrices = async (prices) => {
-		await fetch(`https://atw3.herokuapp.com/prices/add`, {
+		await fetch(`http://localhost:8080/prices/add`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
