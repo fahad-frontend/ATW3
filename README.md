@@ -6,7 +6,7 @@ All Things Web3 (ATW3) is a one stop shop for all things related to web3. From l
 [2] Ability to see the latest tweets around the web3 hashtag taken directly from the Twitter API.<br />
 [3] Ability to see excerpts from news articles from various sites and view them fully by clicking them. Infinite scrolling also added.<br />
 [4] Caching has been done using Firestore database so that unnecessary API requests can be avoided.<br />
-[5] Fully working express backend server for querying API and saving info to database.<br />
+[5] Fully working express backend server for querying API and saving info to database. Fully responsive frontend in React.<br />
 
 
 **Deployed site:** https://metaschool-atw3.netlify.app
